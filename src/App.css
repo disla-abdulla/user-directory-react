@@ -1,0 +1,79 @@
+.app-heading {
+  text-align: center;
+  margin-top: 20px;
+}
+.loading-container {
+  /* to diplay loader at center of screen */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.input-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+.input-container .user-search {
+  width: 50%;
+  border-radius: 20px;
+  padding: 10px 15px;
+  border: 1px solid #ccc;
+  outline: none;
+  font-size: 14px;
+  transition: 0.2s;
+}
+.user-search:focus {
+  border-color: #4caf50;
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+}
+.user-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  flex-wrap: wrap;
+  /* gap is cleaner than margin */
+  gap: 20px;
+  padding: 20px;
+}
+.avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+.user-card {
+  width: 220px;
+  box-sizing: border-box;
+  border-radius: 16px;
+  padding: 20px;
+  margin: 15px;
+  text-align: center;
+  background-color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.user-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+/* improving typography */
+.user-card h3 {
+  margin: 10px 0 5px;
+  font-size: 18px;
+}
+
+.user-card p,
+.user-card h4 {
+  margin: 3px 0;
+  color: #555;
+  font-size: 14px;
+}
+.no-users {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 16px;
+  color: #777;
+}

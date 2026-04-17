@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "name": "Leanne Graham",
+    "email": "leanne@gmail.com",
+    "image": "https://i.pravatar.cc/150?img=1",
+    "address": {
+      "street": "Kulas Light"
+    }
+  },
+  {
+    "id": 2,
+    "name": "Ervin Howell",
+    "email": "ervin@gmail.com",
+    "image": "https://i.pravatar.cc/150?img=2",
+    "address": {
+      "street": "Victor Plains"
+    }
+  },
+  {
+    "id": 3,
+    "name": "Clementine Bauch",
+    "email": "clementine@gmail.com",
+    "image": "https://i.pravatar.cc/150?img=3",
+    "address": {
+      "street": "Douglas Extension"
+    }
+  },
+  {
+    "id": 4,
+    "name": "Patricia Lebsack",
+    "email": "patricia@gmail.com",
+    "image": "https://i.pravatar.cc/150?img=4",
+    "address": {
+      "street": "Hoeger Mall"
+    }
+  },
+  {
+    "id": 5,
+    "name": "Chelsey Dietrich",
+    "email": "chelsey@gmail.com",
+    "image": "https://i.pravatar.cc/150?img=5",
+    "address": {
+      "street": "Skiles Walks"
+    }
+  }
+]
