@@ -248,3 +248,57 @@
 - 3. Cleaner logic
 - 2. Do not use loading for filtering:
 - loading should be only for fetching API
+
+# Day 7 Learning
+
+# DEBOUNCING
+
+- # what problem are we facing now?
+- On user search we are doing filter logic for each keystroke, but this results in many issues like:
+- 1. unnecessary execution of function/ unnecessary re-renders
+- 2. API overload
+- 3. prevents smooth perfomance
+- 4. race conditions , ie on each keystroke filtering logic is done.
+- # solution : Debouncing
+- # WHAT IS DEBOUNCING?
+- Debouncing means delaying the execution of a function until a certain specified time since a last event.
+- in other words it means function gets executed only after user stops action.
+- # WHY DEBOUNCING?
+- it prevents:
+- 1. race conditions
+- 2. API overload
+- 3. Unnecessary rerenders/executions.
+- ensures smooth performance & better User Experience
+- # Real world use cases?
+- 1. Search bar
+- 2. API call on input
+- 3. Auto-save forms
+- 4. window resize events
+- # How debouncing works?
+- steps:
+- 1. User performs an action (say typing)
+- 2. timer starts
+- 3. if user acts again -> timer resets
+- 4. only when user stops -> function executes.
+- # Difference between DEBOUNCING & THROTTLING?
+- Debouncing means delaying an execution until user stops an action
+- throttling means limiting the execution at fixed intervals.
+- # useEffect lifecycle in Debouncing ?
+- 1. user types -> state updates
+- 2. useEffect runs
+- 3. Timer starts
+- 4. if user types again:
+- 4.a cleanup function will get executed -> clear timers
+- 4.b start new timer
+- 5. only last timer executes.
+- # setTimeOut
+- delays the execution
+- run the function after specified time
+- # clearTimeOut
+- cancels previous timer
+- prevents multiple executions
+- # cleanup function
+- return ()=> clearTimeOut(timer)
+- runs :
+- before next effect
+- on component unmount
