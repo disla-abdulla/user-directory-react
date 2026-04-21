@@ -82,3 +82,27 @@
   font-size: 16px;
   color: #777;
 }
+.back-btn {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  padding: 6px 12px;
+  border: none;
+  background-color: #4caf50;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.back-btn:hover {
+  background-color: #45a049;
+}
+.details-container {
+  text-align: center;
+  margin-top: 40px;
+}
+.details-avatar {
+  width: 120px;
+  height: 120px;
+  border-bottom: 50%;
+  margin-bottom: 15px;
+}

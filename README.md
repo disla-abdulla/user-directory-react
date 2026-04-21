@@ -302,3 +302,25 @@
 - runs :
 - before next effect
 - on component unmount
+
+# Day 8 Learning
+
+# Routing : it allows a react app to navigate between different views/pages without reloading the page.
+
+- # Why Routing?
+- Converts single application to multiple page experience
+- for navigating between pages.
+- improves user experience
+- Steps :
+- 1. install react-router-dom
+- 2. Use <BrowserRouter><App/></BrowserRouter>: this wraps app and enables routing
+- 3. Define Routes and Route: it tells you which component should load for which path : <Routes><Route path="/" element={<Home/>}/></Routes>
+- 4. Import useNavigate hook from react-router-dom : this gives prgrammatic navigation inside the button click , it ised inside event handlers.
+- 5. Import useParams hook from react-router-dom inside the component where you need to get the dynamic values from URL.
+- 6. if needed import useLocation from react-router-dom to get the location of current page : it will be useful for dynamic content display. Used for conditional rendering.
+- # build:
+- Converted SPA → Multi-page app ✔️
+- Implemented navigation ✔️
+- Created dynamic route /user/:id ✔️
+- Displayed user details based on ID ✔️
+- Used useLocation to control UI ✔️
