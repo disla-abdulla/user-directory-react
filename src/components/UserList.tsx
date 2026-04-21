@@ -1,31 +1,30 @@
 import { useEffect, useState } from "react";
-import Avatar from "./Avatar";
-import ManAvatar from "../assets/men-avatar.jpg";
-import usersData from "../assets/data/users.json";
 import Profile from "./Profile";
 function UserList({ search }) {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
   // API fetch
-  // useEffect(() => {
-  //   fetch("https://jsonplaceholder.typicode.com/users")
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setUsers(data);
-  //       setLoading(false);
-  //     })
-  //     .catch(() => {
-  //       setLoading(false);
-  //       console.log("Error fetching data");
-  //     });
-  // }, []);
   useEffect(() => {
-    setTimeout(() => {
-      // Fetch users list from mock
-      setUsers(usersData);
-      setLoading(false);
-    }, 1000);
+    fetch("https://jsonplaceholder.typicode.com/users")
+      .then((res) => res.json())
+      .then((data) => {
+        setUsers(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setLoading(false);
+        console.log(err);
+        setError(true);
+      });
   }, []);
+  // Fetch users list from mock
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setUsers(usersData);
+  //     setLoading(false);
+  //   }, 1000);
+  // }, []);
   const filteredUsers = users.filter((user) =>
     user.name.toLowerCase().includes((search || "").toLowerCase())
   );
@@ -35,6 +34,12 @@ function UserList({ search }) {
         <p>Loading users...</p>
       </div>
     );
+  if (error)
+    return (
+      <div className="loading-container">
+        <p>Something went wrong while fetching users list...</p>
+      </div>
+    );
   return (
     <div className="user-container">
       {/* render dynamic UI */}
@@ -42,7 +47,7 @@ function UserList({ search }) {
         filteredUsers.map((user) => <Profile key={user.id} user={user} />)
       ) : (
         <div className="no-users">
-          <p>No users found</p>
+          <p>No users found for {search}</p>
         </div>
       )}
     </div>

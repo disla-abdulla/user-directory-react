@@ -4,7 +4,7 @@ function Profile({ user }) {
   const navigate = useNavigate();
   return (
     <div className="user-card" onClick={() => navigate(`/user/${user.id}`)}>
-      <Avatar image={user.image} altName={user.name} classNames={"avatar"} />
+      <Avatar imageId={user.id} altName={user.name} classNames={"avatar"} />
       <h3>{user.name}</h3>
       <h4>{user.email}</h4>
       <p>{user.address?.street}</p>

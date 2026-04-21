@@ -324,3 +324,42 @@
 - Created dynamic route /user/:id ✔️
 - Displayed user details based on ID ✔️
 - Used useLocation to control UI ✔️
+- # Interview:
+- 1. What is SPA behaviour?
+- A Single Page Application loads a single HTML page and dynamically updates UI without reloading the entire page. Navigation is handled on client side using tools like react-router , which improves the perfomance and user experience.
+- 2. Why SPA is powerful?
+- Better perfomance
+- Smooth User Experience
+- Faster Navigation
+- # Limitation
+- Initial load will be heavier
+- SEO needs extra handling
+
+# Day 9 Learning
+
+- # API : Application Programming Interface allows your frontend to communicate with server ie, fetch data from / send data to server
+- # Why API?
+- get real time data
+- to replace mock data
+- build dynamic applications
+- # where do you call an API?
+- inside useEffect
+- # why useEffect?
+- It renders the component on mount and then fetches the api
+- it prevents infinite renders
+- ideal for side effects like API calls
+- # states used in API call?
+- a. Data state for success UI
+- b. Loading state for Loading UI
+- c. Error state for error handling
+- # handling missing data like images
+- we could use Pravatar eg : https://i.pravatar.cc/150?img=${id}
+- # Interview
+- 1. How did you optimize API calls?
+- Initially I fetched all users and filtered locally, but then optimized it by fetching a single user using the dynamic ID in the API endpoint to reduce unnecessary data transfer.
+- 2. fetch?
+- fetch is a built in browser API for making HTTP requests to a server and retrieving data asynchronously.
+- fetch returns a promise
+- that is why we use :
+- .then()
+- or async/await
