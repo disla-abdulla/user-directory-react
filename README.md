@@ -363,3 +363,57 @@
 - that is why we use :
 - .then()
 - or async/await
+
+# Day 10 Learning
+
+- # Custom Hooks : they are reusable JS functions in React that are used to extract and share stateful logic between components.
+- They help you avoid repeating logic across components.
+- # why Custom hooks?
+- Here we were using logics like :
+- 1. Debouncing
+- 2. API fetch
+- 3. Side Effects(useEffect)
+- 4. State handling
+- was written inside components, which leads to:
+- 1. messy code
+- 2. duplication
+- 3. hard-to-maintain logic
+- Custom hooks solve this by moving logic outside components.
+- # advantages:
+- 1. Reusable logic
+- 2. Cleaner component
+- 3. Better readability
+- 4. Easier Testing
+- 5. Less duplicate code
+- # Rules of Custom hooks:
+- 1. Must start with use
+- 2. inside we can use built in react hooks like useState, useEffect etc
+- 3. cannot return JSX , instead can return data/function/state
+- 4. hooks must be imported and exported similarly like components
+- # Difference between component and custom hooks?
+- Component - UI Layer ie it is a JS function which returns JSX
+- Custom Hooks -logic layer, it act as the reusable brain of react app where all the logics are stored and it will never return JSX , instead can return data/function ie logic
+- # Build
+- inside src/hooks folder we created 3 hooks:
+- 1. useDebounce : used for search optimization and delay value update
+- 2. useFetch: reusable api logic
+- 3. usePageTitle: for dynamically updating document/browser title
+- # Interview:
+- 1. before implementing custom hook the debounce logic was written like this with only one dependency searchData useEffect(() => { const timer = setTimeout(() => { setDebouncedSearch(searchData); }, 500); return () => clearTimeout(timer); }, [searchData]); but inside custom hook useDebounce , the dependency array contains two elements value and delay, value means searchData . but why are we adding a new element delay as dependency in useeffect?
+- ans: Because useEffect should depend on everything it uses inside.
+- inside your effect you are using value and delay , so we should add it inside dependency array.
+- if we don't add delay , then React will not re-run the effect when delay changes.That means your effect runs with old values even when things change.
+- 2. How can you restore document title on component unmount?
+- function usePageTitle(title) {
+  useEffect(() => {
+  const prevTitle = document.title;
+  document.title = title;
+
+      return () => {
+        document.title = prevTitle; // restore on unmount
+      };
+
+  }, [title]);
+  }
+
+- This restores the old title when leaving the page — very clean UX.

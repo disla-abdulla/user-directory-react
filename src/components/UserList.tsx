@@ -1,31 +1,11 @@
-import { useEffect, useState } from "react";
 import Profile from "./Profile";
+import useFetch from "../hooks/useFetch";
 function UserList({ search }) {
-  const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
-  // API fetch
-  useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/users")
-      .then((res) => res.json())
-      .then((data) => {
-        setUsers(data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        setLoading(false);
-        console.log(err);
-        setError(true);
-      });
-  }, []);
-  // Fetch users list from mock
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     setUsers(usersData);
-  //     setLoading(false);
-  //   }, 1000);
-  // }, []);
-  const filteredUsers = users.filter((user) =>
+  // API fetch using custom hook
+  const { fetchedData, loading, error } = useFetch(
+    "https://jsonplaceholder.typicode.com/users"
+  );
+  const filteredUsers = fetchedData.filter((user) =>
     user.name.toLowerCase().includes((search || "").toLowerCase())
   );
   if (loading)

@@ -1,25 +1,16 @@
 import { useNavigate, useParams } from "react-router-dom";
 import Avatar from "./Avatar";
-import { useEffect, useState } from "react";
+import usePageTitle from "../hooks/usePageTitle";
+import useFetch from "../hooks/useFetch";
 function UserDetails() {
-  const [user, setUser] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams();
-  useEffect(() => {
-    fetch(`https://jsonplaceholder.typicode.com/users/${id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setUser(data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        setLoading(false);
-        console.error(err);
-        setError(true);
-      });
-  }, []);
+  // using custom hook for displaying tab name
+  const apiData = useFetch(`https://jsonplaceholder.typicode.com/users/${id}`);
+  const user = apiData.fetchedData;
+  const loading = apiData.loading;
+  const error = apiData.error;
+  usePageTitle(`User Details/${user?.name}`);
   if (loading)
     return (
       <div className="loading-container">
@@ -39,30 +30,30 @@ function UserDetails() {
         ← Back
       </button>
       <Avatar
-        imageId={user.id}
-        altName={user.name}
+        imageId={user?.id}
+        altName={user?.name}
         classNames={"details-avatar"}
       />
-      <h2>{user.name}</h2>
+      <h2>{user?.name}</h2>
       <p>
         <strong>User Name:</strong>
-        {user.username}
+        {user?.username}
       </p>
       <p>
         <strong>Email:</strong>
-        {user.email}
+        {user?.email}
       </p>
       <p>
         <strong>Phone:</strong>
-        {user.phone}
+        {user?.phone}
       </p>
       <p>
         <strong>Street:</strong>
-        {user.address?.street}
+        {user?.address?.street}
       </p>
       <p>
         <strong>City:</strong>
-        {user.address?.city}
+        {user?.address?.city}
       </p>
     </div>
   );
