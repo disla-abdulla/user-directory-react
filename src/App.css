@@ -1,6 +1,42 @@
-.app-heading {
-  text-align: center;
-  margin-top: 20px;
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 25px;
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+}
+.logo {
+  margin: 0;
+  font-size: 20px;
+  cursor: pointer;
+  color: #333;
+}
+.favorites-btn {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.2s;
+  align-items: center;
+}
+.favorites-btn:hover {
+  background-color: #43a047;
+}
+.badge {
+  background: white;
+  color: #4caf50;
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-left: 5px;
+  font-size: 12px;
 }
 .loading-container {
   /* to diplay loader at center of screen */
@@ -11,9 +47,8 @@
 }
 .input-container {
   display: flex;
-  justify-content: center;
-  margin-top: 10px;
-  margin-bottom: 5px;
+  justify-content: end;
+  padding: 20px 20px 0px 20px;
 }
 .input-container .user-search {
   width: 50%;
@@ -50,6 +85,8 @@
   margin-bottom: 10px;
 }
 .user-card {
+  cursor: pointer;
+  position: relative;
   width: 220px;
   box-sizing: border-box;
   border-radius: 16px;
@@ -63,6 +100,9 @@
 .user-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+.user-card.favorited {
+  border: 2px solid #4caf50;
 }
 /* improving typography */
 .user-card h3 {
@@ -81,6 +121,21 @@
   margin-top: 40px;
   font-size: 16px;
   color: #777;
+}
+.favorite-icon {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  cursor: pointer;
+}
+.favorite-icon img {
+  filter: grayscale(100%);
+}
+.user-card.favorited .favorite-icon img {
+  filter: none;
+}
+.favorite-icon .favIconStar {
+  filter: none;
 }
 .back-btn {
   position: absolute;
@@ -105,4 +160,11 @@
   height: 120px;
   border-bottom: 50%;
   margin-bottom: 15px;
+}
+.favorites-btn {
+  display: flex;
+  gap: 10px;
+}
+.favorite-container {
+  width: 100;
 }

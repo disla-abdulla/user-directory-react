@@ -417,3 +417,78 @@
   }
 
 - This restores the old title when leaving the page — very clean UX.
+
+# Day 11 Learning
+
+- # Event bubbling
+- # Context API
+- 1. What is Context API?
+- ans: Context API is a way to share state across components without prop drilling. It does not necessarily mean global, but commonly used for app-wide data.
+- 2. What is props drilling?
+- ans: Prop drilling is the process of passing data through multiple intermediate components that do not need the data.
+- 3. What problem does it solve?
+- ans: it helps to solve the passing of data through multiple intermediate components unneccessarily. It makes the messy code looks cleaner.
+- 4. When would you use context?
+- ans: 1. Used when data is needed globally ie multiple components or unrelated components need same data.
+- ans 2. eg:
+- a. Auth state
+- b. Theme Toggle
+- c. favorite list
+- d. language
+- 5. When should you not use context?
+- ans: if data is local, that is data is only used by 1-2 components.
+- ans : in such cases usage of context results in unneccessary re-renders of components.
+- 6. Re-rendering?
+- When the context value changes, all components consuming that context will re-render, even if they use only part of the data.
+- eg: Add Favorites -> Navbar Updates
+- -> Profile updates.
+- 7. Optimization ?
+- To avoid re-renders:
+- a. split context
+- b. use memoization
+- 8. Advantages of Context?
+- ans:
+- a. To avoid props drilling
+- b. cleaner code
+- c. centralised state
+- d. easy sharing
+- 9. Disadvantages?
+- ans:
+- a. Difficult to optimize large contexts because all consumers re-render
+- b. results in unnecessary re-renders
+- c. not ideal for complex state
+- d. harder debugging if overused.
+- 10. Context vs Props?
+- ans :
+- # context :
+- a. global data
+- b. scalable
+- c. auto available
+- # props
+- a. local data
+- b. simple
+- c. passed manually
+- 11. Context v/s Redux?
+- # Context
+- a. built in
+- b. simple state
+- c. less boilerplate
+- d. suiltable for small to medium application
+- e. harder debugging
+- # Redux
+- a. external library
+- b. complex state
+- c. more structure
+- d. suitable for large scale complex application.
+- e. Redux provides better debugging tools like DevTools and predictable state updates.
+- 12. What your project do?
+- ans: I used Context API to manage favorite users globally. This allowed me to access and update favorites from multiple components like UserList, UserDetails, Navbar, and Favorites page without prop drilling.
+  I implemented a FavoriteContext to manage favorite users globally. This allowed multiple components like UserList, UserDetails, Navbar, and Favorites page to access and update favorites without prop drilling. I also created a custom hook useFavorite to encapsulate logic for toggling favorites, which improved reusability and kept components clean.
+- # Build
+- FavoriteContext
+- Stored favorite users
+- Used in:
+- UserList
+- UserDetails
+- Navbar
+- Favorites page
