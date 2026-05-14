@@ -1,6 +1,8 @@
+import React from "react";
 import { useState } from "react";
 
 function UserSearch({ sendSearchName }) {
+  console.log("UserSearch rendered");
   const [searchInput, setSearchInput] = useState("");
   const handleChange = (e) => {
     //  Don't allow space as the first character
@@ -26,4 +28,4 @@ function UserSearch({ sendSearchName }) {
     </div>
   );
 }
-export default UserSearch;
+export default React.memo(UserSearch);

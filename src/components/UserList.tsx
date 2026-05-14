@@ -1,13 +1,17 @@
 import Profile from "./Profile";
 import useFetch from "../hooks/useFetch";
+import { useMemo } from "react";
 function UserList({ search }) {
   // API fetch using custom hook
   const { fetchedData, loading, error } = useFetch(
     "https://jsonplaceholder.typicode.com/users"
   );
-  const filteredUsers = fetchedData.filter((user) =>
-    user.name.toLowerCase().includes((search || "").toLowerCase())
-  );
+  const filteredUsers = useMemo(() => {
+    console.log("filtering users");
+    return fetchedData.filter((user) =>
+      user.name.toLowerCase().includes((search || "").toLowerCase())
+    );
+  }, [fetchedData, search]);
   if (loading)
     return (
       <div className="loading-container">

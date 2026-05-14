@@ -492,3 +492,193 @@
 - UserDetails
 - Navbar
 - Favorites page
+
+# Day 12 Learning
+
+# React Perfomance Optimization
+
+- 1. Why React re-renders?
+- Ans: React component re-renders whenever:
+- state changes
+- props changes
+- context value changes
+- Parent component re-renders
+- This re-rendering is normal and important as this keeps the UI layer in sync with data layer
+- While unnecessary re-renders can affect the performance in large applications.
+- 2. What are unnecessary re-renders?
+- Ans: Unnecessary re-renders happen when:
+- a component state doesnot changes but it re-renders again
+- example: a parent component state changes-> child component props remain unchanged -> still child component re-render
+- 3. Why functions recreate on every render?
+- In React , a component is a pure JS function.
+- in Javascript a function is an object
+- So whenever a component renders a new object is being created with a new reference even if the logic of function remains the same.
+- Example:
+  const handleClick = () => {
+  console.log("clicked");
+  };
+
+Every component render creates:
+
+NEW function object
+
+Even if logic is same.
+
+- 4. Why function recreation is important?
+- Because React.memo does shallow prop comparison
+- example :
+- if prevFunction === newFunction returns false then react thinks props got changed and it results in the re-rendering of child component eventhough the child component data remains the same.
+- 5. React.memo
+- # What is React.memo?
+- Ans: it is a Higher Order Component that prevents unnecessary re-rendering of functional components.
+- It memoizes the Component output
+- # How React.memo works?
+- It uses the principle of shallow prop comparison
+- if props are same , then it skip re-render
+- if props changes, component re-render
+- # when to use React.memo?
+- Use when:
+- 1. Component re-renders frequently
+- 2. Component receives same props often
+- 3. Component rendering is expensive like it results in wastage of memory, CPU and money.
+- # when React.memo fails?
+- React.memo fails :
+- 1. a new object created
+- 2. new array created
+- 3. new function created
+- all these results in the creation of a new reference and this reference change causes the failure of React.memo
+- 6. useCallback
+- # what is useCallback?
+- It memoizes a function.
+- it preserves same function reference between renders until dependency changes.
+- useCallback will not premanently freezes a function instead it preserves a function until the dependency changes.
+- example:
+- const handleSearch = useCallback((value)=>{setSearch(value)},[])
+- # How useCallback works?
+- without useCallback :
+- on each render a new function reference is created even if the logic remains the same.
+- with useCallback:
+- on each render same function reference is preserved/memoized until dependency changes.
+- # Real Use Case
+- passing function as props to a memoized child component
+- example :
+- In our project we used useCallback to memoize handleSearch function , then we passed it to <UserSearch> component which is already memoized using React.memo
+- these both will prevent unnecessary rerenders.
+- # when will useCallback fails?
+- if dependencies themselves recreates frequently.
+- Example :
+- if we try to add useCallback for toggleFunction, here we need to add useCallback for handleToggle as well as toggleFavorite. but the dependencies like favorite,user,addFavorite,removeFavorite these all get recreated frequently and useCallback fails.
+- 7. useMemo
+- # what is useMemo?
+- useMemo is a react hook used for optimizing a computed/calculated value.
+- it prevents expensive calculations
+- example :
+- const filteredUsers = useMemo(()=>{
+  return users.filter((user)=>user.name.toLowerCase().includes(search.toLowerCase()))
+  },[users,search])
+- withpout useMemo:
+- calculation runs on every render
+- with useMemo:
+- calculation runs only when dependencies changes
+- # useMemo v/s useCallback
+- useMemo used for memoizing value , while useCallback used for memoizing function
+- 8. Dependency Array
+- It controls:
+- when the hook should re-run/recreate
+- # Rule:
+- it must include all the values inside hook except stable values.
+- stable values include:
+- 1. setter function (setState function)
+- 2. dispatch function
+- example:
+- useEffect(() => {
+  console.log(search);
+  }, [search]);
+- 9. Stale Closure
+- Stale Closure means callback remebers the previous value instead of current value when we miss dependency
+- example for stale closure:
+- const handleSearch = useCallback(() => {
+  console.log(search);
+  }, []);
+- here search dependency is missing
+- the correct example to prevent stale closure is :
+  const handleSearch = useCallback(() => {
+  console.log(search);
+  }, [search]);
+- 10. useRef
+- useRef is used for function comparison
+- to compare previousFunctionReference with newFunctionReference
+- example:
+- const previousHandleToggle = useRef(null);
+
+useEffect(() => {
+console.log(
+previousHandleToggle.current === handleToggle
+);
+
+previousHandleToggle.current = handleToggle;
+}, [handleToggle]);
+
+- if this returns true , then same function is reused
+- if this returns false , then new function is recreated
+- 11. React.memo + useCallback work together
+- # without useCallback:
+- flow:
+- 1. parent re-renders
+- 2. new function reference created
+- 3. prop reference changes
+- 4. React.memo fails because prop comparison returned false
+- 5. child component re-renders
+- # with useCallback:
+- flow:
+- 1. Parent re-renders
+- 2. useCallback memoizes the function
+- 3. prop remains unchanged
+- 4. React.memo prevents child re-render
+- 12. React.memo + useMemo :
+- without useMemo:
+- Flow:
+- 1. Parent re-render
+- 2. new array/object created
+- 3. prop reference changes
+- 4. React.memo fails
+- with useMemo:
+- 1. Parent re-render
+- 2. same array/object reused
+- 3. prop reference unchanged
+- 4. React.memo works properly
+- 13. Interview questions?
+- # Difference between useMemo and useCallback?
+- useMemo
+- memoizes values
+- prevents recalculation
+- useCallback
+- memoizes functions
+- prevents function recreation
+- # Why functions recreate on every render?
+- Because on every component render js creates a new function object or function reference.
+- # What problem does React.memo solve?
+- React.memo prevents unnecessary frequent re-rendering of component , re-rendering of components in which props remains same by shallow prop comparison.
+- # Does useCallback prevent all recreations?
+- It cannot prevent all recreations instead it memoizes function references only until dependencies changes.
+- # Why React.memo sometimes fails?
+- Because shallow comparison fails for:
+- 1. new object recreation
+- 2. new array recreation
+- 3. new function recreation
+- # What is shallow comparison?
+- React compares
+- prevProps === newProps
+- no deep nested values
+- # Should we use useCallback everywhere?
+- No. Because:
+- memoization has overhead
+- unnecessary use makes code complex.
+- # When should we use React.memo?
+- when child component is expensive
+- frequent re-rendering of component
+- receives same props frequently
+- # What is stale closure?
+- callback remembers previous state value instead of latest value if dependency is missing
+- # Why dependency array important?
+- it controls when hooks logic should re-run/recreate

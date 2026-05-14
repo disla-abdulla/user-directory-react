@@ -3,23 +3,23 @@ import { useNavigate } from "react-router-dom";
 import starred from "../assets/images/star.png";
 import unStarred from "../assets/images/favorite.png";
 import useFavorite from "../hooks/useFavorite";
+import React from "react";
 function Profile({ user }) {
+  console.log("profile render", user.name);
   const navigate = useNavigate();
   const { favorite, toggleFavorite } = useFavorite(user);
-
+  const handleToggle = (e) => {
+    // to prevent event bubling issue.
+    e.stopPropagation();
+    toggleFavorite();
+  };
+  console.log("handleToggle recreated for:", user.name);
   return (
     <div
       className={`user-card ${favorite ? "favorited" : ""}`}
       onClick={() => navigate(`/user/${user.id}`)}
     >
-      <button
-        className="favorite-icon"
-        onClick={(e) => {
-          // to prevent event bubling issue.
-          e.stopPropagation();
-          toggleFavorite();
-        }}
-      >
+      <button className="favorite-icon" onClick={handleToggle}>
         <img
           src={favorite ? starred : unStarred}
           alt="favorite"
@@ -34,4 +34,4 @@ function Profile({ user }) {
     </div>
   );
 }
-export default Profile;
+export default React.memo(Profile);
