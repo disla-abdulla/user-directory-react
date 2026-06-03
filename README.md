@@ -682,3 +682,182 @@ previousHandleToggle.current = handleToggle;
 - callback remembers previous state value instead of latest value if dependency is missing
 - # Why dependency array important?
 - it controls when hooks logic should re-run/recreate
+
+# Day 13 Learning
+
+# Controlled Components
+
+- 1. What are controlled components and Uncontrolled components?
+- Controlled components are form input elements whose values are contolled by react state. React becomes the single source of truth.
+- The input value is managed using :
+- 1. useState
+- 2. value
+- 3. onChange
+- Example:
+  const [name,setName]= useState("")
+  <input value={name} onChange={(e)=>setName(e.target.value)}/>
+- Uncontrolled components are form elements whose values are controlled by DOM using ref instead of React state.
+- Example
+  const inputRef= useRef()
+  <input ref={inputRef}/>
+- In controlled components, React controls the form input values using state, making React the single source of truth. In uncontrolled components, the DOM manages the form values, and React accesses them using refs.
+- 2. Handlimg Form Inputs
+- learning:
+- text input
+- textarea
+- select
+- checkbox
+- 3. Form Submission
+- e.preventDefault(): done for preventing browser page refresh on form submission.
+- 4. Validation
+- required fields
+- minimum length
+- email validation
+- empty value checking
+- 5. Error state handling
+- const [errors,setError]= useState({})
+- 6. Controlled vs Uncontrolled Components
+- # Controlled
+- react controls input values
+- easier validation
+- easier debugging
+- predictable data flow
+- # uncontrolled
+- DOM controls input values
+- React access it using refs
+- Less react control
+- used in simple forms
+- 7. Dynamic Input Handling
+- handling multiple form input elements using a single change handler function
+- # Why Dynamic Input Handling?
+- instead of creating multiple input handlers like :
+- handleName
+- handleEmail
+- handlePhone
+- handleCity
+- we use a single handler:
+- handleChange , inside which we call a form object setter function
+- This makes code:
+- 1. cleaner
+- 2. scalable
+- 3. less duplication of logic
+- Advantages:
+  Cleaner code
+  Reusable logic
+  Easier maintenance
+  Scalable forms
+  Better user experience
+  Real-time validation
+- 8. Form state Object
+- instead of creating multiple states, all form values are stored inside single object
+  const [formData,setFormData]= useState({
+  name:"",email:"",phone:"",city:""
+  })
+- 9. Dynamic change handler
+- const handleChange=(e)=>{
+  const {name,value} =e.target
+  const updatedData = {
+  ...formData,
+  [name]:value,
+  }
+  setFormData(updatedData)
+  const validationErrors = validate(updatedData)
+  setErrors(validationErrors)
+  }
+- 10. what is e.target.name?
+- it is the name attribute value of form input fields
+- 11. what is e.target.value?
+- it is the value typed by the user inside user input fiels.
+- 12. what is [name]?
+- it is computed property name
+- it dynamically creates object keys.
+  eg:
+  const key ="city"
+  const obj ={
+  [key]:"dubai"
+  }
+
+result:
+{
+city:"dubai"
+}
+
+- 13. why [] are used?
+- it tells JS to evaluate expression and use result to create object keys.
+- without []
+  const obj ={
+  key:"Dubai"
+  }
+  result:
+  {
+  key:"dubai"
+  }
+- 14 . Why spread operator used?
+- It is used for preserving previous/old form input values while updating only changed field
+- 15. Why validation?
+- validation ensures:
+- 1. correct user input
+- 2. better UX
+- 3. cleaner data
+- # validation function
+- const validate =(data)=>{
+  let newErrors={}
+  if(!data.name.trim()){
+  newErrors.name="Name is required"
+  }
+  return newErrors;
+  }
+- email validation
+
+if(!data.email.trim()){
+newErrors.email="Email is Required"
+}else{
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+if(!emailRegex.test(data.email)){
+newErrors.email="Invalid Email Format"
+}
+}
+
+- phone validation : only numbers and must be 10 digits
+  if(!data.phone.trim()){
+  newErrors.phone ="phone is required"
+  }else{
+  const phoneRegex = /^[0-9]{10}$/;
+  if(!phoneRegex.test(data.phone)){
+  newErrors.phone ="Must be 10 digits"
+  }
+  }
+- # real time validation
+- helps to validate user input values when user types
+- const validationErrors = validate(updatedData)
+  setErrors(validationErrors)
+
+- 16. what is touched state?
+- const [touched,setTouched] = useState({})
+- this state tracks whether user interacted with input field
+- # why touched needed?
+- without touched :
+- errors shows immediately on page load
+- bad user experience
+- # handleBlur
+- it gets triggered when input loses focus.
+- # Conditional error rendering
+- {touched.name && errors.name && <p>{errors.name}</p>}
+- shows error only when
+- 1. field is touched
+- 2. error exists
+- # Dynamic Class Handling
+- className={touched.name && errors.name ? "input error":formData.name?"input success":"input"}
+- # 25. Build
+- AddUserForm Component
+- Features implemented:
+- 1. Controlled Components
+- 2. Dynamic Input Handling
+- 3. Real-time Validation
+- 4. Email Regex Validation
+- 5. Phone Regex Validation
+- 6. Touched State
+- 7. Dynamic Error Styling
+- 8. Conditional Error Rendering
+- 9. Form Submission
+- 10. Form Reset Logic

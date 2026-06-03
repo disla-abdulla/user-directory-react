@@ -8,6 +8,7 @@ import useDebounce from "./hooks/useDebounce";
 import usePageTitle from "./hooks/usePageTitle";
 import Favorites from "./components/Favorites";
 import Navbar from "./components/Navbar";
+import AddUserForm from "./components/AddUserForm";
 function App() {
   console.log("App rendered");
   const [searchData, setSearchData] = useState("");
@@ -42,6 +43,7 @@ function App() {
         <Route path="/" element={<UserList search={debouncedSearch} />} />
         <Route path="/user/:id" element={<UserDetails />} />
         <Route path="/favorites" element={<Favorites />} />
+        <Route path="/add-user" element={<AddUserForm />} />
       </Routes>
     </div>
   );

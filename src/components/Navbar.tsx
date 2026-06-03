@@ -15,6 +15,7 @@ function Navbar() {
         <img src={FavIcon} width={10} height={10} />
         Favorites<span className="badge">{favoriteCount}</span>
       </button>
+      <button onClick={() => navigate("/add-user")}> Add User</button>
     </div>
   );
 }
